@@ -51,15 +51,23 @@ func TestPermutation(t *testing.T) {
 			},
 			expectLen: 6,
 		},
+		permutationsTest{
+			input: []interface{}{"a", "a"},
+			expect: [][]interface{}{
+				[]interface{}{"a", "a"},
+				[]interface{}{"a", "a"},
+			},
+			expectLen: 2,
+		},
 	}
 
-	for _, test := range table {
+	for i, test := range table {
 		res := permutation.Generate(test.input)
 		if got := len(res); got != test.expectLen {
-			t.Fatalf("invalid result len %v, wanted %v for %v, res was %v", got, test.expectLen, test.input, res)
+			t.Fatalf("invalid result len %v at %v, wanted %v for %v, res was %v", got, i, test.expectLen, test.input, res)
 		}
 		if !reflect.DeepEqual(res, test.expect) {
-			t.Fatalf("invalid result %v, wanted %v", res, test.expect)
+			t.Fatalf("invalid result %v at %v, wanted %v", res, i, test.expect)
 		}
 	}
 
